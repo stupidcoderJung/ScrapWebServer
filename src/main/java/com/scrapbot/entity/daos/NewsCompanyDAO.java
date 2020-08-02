@@ -8,14 +8,15 @@ import org.hibernate.criterion.Order;
 import org.hibernate.metadata.ClassMetadata;
 
 import com.scrapbot.entity.entities.NewsArticle;
+import com.scrapbot.entity.entities.NewsCompany;
 import com.scrapbot.hibernate.HibernateCfg;
 
 
-public class NewsArticleDAO {
+public class NewsCompanyDAO {
 	
 	private Transaction transaction;
 
-	public void saveNews(NewsArticle entity) {
+	public void saveNewsCompany(NewsCompany entity) {
 		this.transaction = null;
 		try (Session session = HibernateCfg.getFactoryInstance().openSession()) {
 			// start a transaction
@@ -52,7 +53,7 @@ public class NewsArticleDAO {
 
 	}
 
-	public void updateNews(NewsArticle entity) {
+	public void updateNewsCompany(NewsCompany entity) {
 		Transaction transaction = null;
 		try (Session session = HibernateCfg.getFactoryInstance().openSession()) {
 			// start a transaction
@@ -69,9 +70,9 @@ public class NewsArticleDAO {
 		}
 	}
 
-	public List<NewsArticle> getNews() {
+	public List<NewsCompany> getNewsCompanies() {
 		try (Session session = HibernateCfg.getFactoryInstance().openSession()) {
-			return session.createCriteria(NewsArticle.class).addOrder(Order.asc("id")).list();
+			return session.createCriteria(NewsCompany.class).addOrder(Order.asc("id")).list();
 			// return session.createQuery("from Product", Product.class).list();
 		}
 	}
@@ -82,15 +83,15 @@ public class NewsArticleDAO {
 
 
 	@SuppressWarnings("finally")
-	public NewsArticle findByPkey(int pkey) {
+	public NewsCompany findByPkey(int pkey) {
 		Transaction transaction = null;
-		NewsArticle code = null;
+		NewsCompany code = null;
 		try (Session session = HibernateCfg.getFactoryInstance().openSession()) {
 
 			// start a transaction
 			transaction = session.beginTransaction();
 			// save the student object
-			code = session.find(NewsArticle.class, pkey);
+			code = session.find(NewsCompany.class, pkey);
 			// commit transaction
 			if (code != null) {
 				 System.out.println(code.toString());
@@ -111,7 +112,7 @@ public class NewsArticleDAO {
 
 	}
 
-	public void delNews(NewsArticle entity) {
+	public void delNewsCompany(NewsCompany entity) {
 		// TODO Auto-generated method stub
 		Transaction transaction = null;
 		try (Session session = HibernateCfg.getFactoryInstance().openSession()) {
@@ -129,15 +130,28 @@ public class NewsArticleDAO {
 		}
 	}
 	public static void main(String[] args) {
-		
-		NewsArticleDAO dao = new NewsArticleDAO();
-		
-//		NewsArticle article = new NewsArticle();
-//		article.setNewcompany("동아일보");
-//		article.setPagenumber("A1");
-//		article.setTitle("정지원지존되다.");
-//		article.setTopornot(true);
-//		dao.saveNews(article);
-		dao.getNews().forEach(e-> System.out.println(e.getTitle()));
+//		put("국민일보","005");
+//		put("서울신문","081");
+//		put("세계일보","022");
+//		put("한겨레","028");
+//		put("한국일보","469");
+//		put("이데일리","018");
+//		put("파이낸셜뉴스","014");
+//		put("디지털타임스","029");
+//		put("전자신문","030");
+//		put("머니투데이","008");
+//		put("조선일보","023");
+//		put("중앙일보","025");
+//		put("동아일보","020");
+//		put("매일경제","009");
+//		put("한국경제","015");    
+//		put("서울경제","011");    
+//		put("경향신문","032");
+	NewsCompanyDAO  companyDAO = new NewsCompanyDAO();
+	NewsCompany entity = new NewsCompany();
+	entity.setCompanyName("국민일보");
+	entity.setCompanyIdOnNaver("005");
+	companyDAO.saveNewsCompany(entity);
 	}
+	
 }

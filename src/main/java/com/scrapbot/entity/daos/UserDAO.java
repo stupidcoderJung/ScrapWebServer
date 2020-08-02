@@ -1,5 +1,7 @@
 package com.scrapbot.entity.daos;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -8,14 +10,16 @@ import org.hibernate.criterion.Order;
 import org.hibernate.metadata.ClassMetadata;
 
 import com.scrapbot.entity.entities.NewsArticle;
+import com.scrapbot.entity.entities.NewsCompany;
+import com.scrapbot.entity.entities.User;
 import com.scrapbot.hibernate.HibernateCfg;
 
 
-public class NewsArticleDAO {
+public class UserDAO {
 	
 	private Transaction transaction;
 
-	public void saveNews(NewsArticle entity) {
+	public void saveUser(User entity) {
 		this.transaction = null;
 		try (Session session = HibernateCfg.getFactoryInstance().openSession()) {
 			// start a transaction
@@ -52,7 +56,7 @@ public class NewsArticleDAO {
 
 	}
 
-	public void updateNews(NewsArticle entity) {
+	public void updateUser(User entity) {
 		Transaction transaction = null;
 		try (Session session = HibernateCfg.getFactoryInstance().openSession()) {
 			// start a transaction
@@ -69,9 +73,9 @@ public class NewsArticleDAO {
 		}
 	}
 
-	public List<NewsArticle> getNews() {
+	public List<User> getUser() {
 		try (Session session = HibernateCfg.getFactoryInstance().openSession()) {
-			return session.createCriteria(NewsArticle.class).addOrder(Order.asc("id")).list();
+			return session.createCriteria(User.class).addOrder(Order.asc("id")).list();
 			// return session.createQuery("from Product", Product.class).list();
 		}
 	}
@@ -82,15 +86,15 @@ public class NewsArticleDAO {
 
 
 	@SuppressWarnings("finally")
-	public NewsArticle findByPkey(int pkey) {
+	public User findByPkey(int pkey) {
 		Transaction transaction = null;
-		NewsArticle code = null;
+		User code = null;
 		try (Session session = HibernateCfg.getFactoryInstance().openSession()) {
 
 			// start a transaction
 			transaction = session.beginTransaction();
 			// save the student object
-			code = session.find(NewsArticle.class, pkey);
+			code = session.find(User.class, pkey);
 			// commit transaction
 			if (code != null) {
 				 System.out.println(code.toString());
@@ -111,7 +115,7 @@ public class NewsArticleDAO {
 
 	}
 
-	public void delNews(NewsArticle entity) {
+	public void delUser(User entity) {
 		// TODO Auto-generated method stub
 		Transaction transaction = null;
 		try (Session session = HibernateCfg.getFactoryInstance().openSession()) {
@@ -130,14 +134,22 @@ public class NewsArticleDAO {
 	}
 	public static void main(String[] args) {
 		
-		NewsArticleDAO dao = new NewsArticleDAO();
+		UserDAO dao = new UserDAO();
+		NewsCompanyDAO newsCompanyDAO = new NewsCompanyDAO();
 		
-//		NewsArticle article = new NewsArticle();
-//		article.setNewcompany("동아일보");
-//		article.setPagenumber("A1");
-//		article.setTitle("정지원지존되다.");
-//		article.setTopornot(true);
-//		dao.saveNews(article);
-		dao.getNews().forEach(e-> System.out.println(e.getTitle()));
+		User entity= new User();
+		entity.setKakaoID("0001");
+		
+		ArrayList<String> list= (ArrayList<String>) entity.getKeywords();
+		list.add("장마");
+		entity.setKeywords(list);
+		HashSet<NewsCompany> companies = new HashSet<>();
+		newsCompanyDAO.getNewsCompanies().forEach(e->{
+			System.out.println(e.getCompanyName());
+			companies.add(e);
+		});
+		entity.setNewsCompanySet(companies);
+		entity.setGrade("플레티넘");
+		dao.saveUser(entity);
 	}
 }
