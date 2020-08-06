@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.scrapbot.entity.daos.NewsArticleDAO;
 import com.scrapbot.entity.entities.NewsArticle;
 import com.scrapbot.repository.NewsArticleRepository;
 @CrossOrigin(origins="http://localhost:3000")
