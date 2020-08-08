@@ -13,26 +13,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.scrapbot.entity.entities.NewsArticle;
+import com.scrapbot.entity.NewsArticle;
 import com.scrapbot.service.NewsArticleService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 @CrossOrigin(origins="http://localhost:3000")
 @RestController
+@Api(value = "NewsArticleController", description = "Article API")
 @RequestMapping(value ="/api", method = RequestMethod.GET)
 public class NewsArticleController {
-//	@Autowired
-//	private NewsArticleRepository newsArticleRepository;
+
 	@Autowired
 	private final NewsArticleService newsArticleService = null;
 	
     @GetMapping("/articles")
+    @ApiOperation(httpMethod = "GET"
+    			,value = "articles 리스트전체 조회" 
+    			,notes="articles 리스트 반환하는 API, Ajax 통신 확인용.")
     public List<NewsArticle> getArticle() {
-    	System.out.println("woodo king22");
     	return newsArticleService.findAll();
     }
+//    public ResponseEntity<ApiResponseMessage> getArticle() {
+//    	
+//    	ApiResponseMessage message = new ApiResponseMessage("Success", "Hello, World", "", ""); 
+//    	return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.OK);
+//    }
+
 	
 	@GetMapping("/articles/getById/{id}")
 	public Map<String, Object> findById(@PathVariable("id") int id) {
-		System.out.println("woodo good"); 
 		Map<String, Object> response = new HashMap<>();
 
 		Optional<NewsArticle> oUser = newsArticleService.findById(id);
@@ -49,13 +59,10 @@ public class NewsArticleController {
 	
 	@GetMapping("/articles/getByName/{newcompany}")
 	public List<NewsArticle> findOne(@PathVariable("newcompany") String newcompany){
-		System.out.println("newcompany");
 		
-//		// get list 
-//		List<NewsArticle> list1 = newsArticleService.findByNameLike("%ko"); 
-//		System.out.println("*Find By Name*");
-//
-//		
-		return newsArticleService.findByNewcompanyLike(newcompany);
+		//return newsArticleService.findByNewcompanyLike(newcompany);
+		
+		// string like 는 containing 을 이용하는것이 잘 되는듯. 개인적인 우도 생
+		return newsArticleService.findByNewcompanyContaining(newcompany);
 	}
 }

@@ -2,12 +2,10 @@ package com.scrapbot.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.scrapbot.entity.entities.NewsArticle;
+import com.scrapbot.entity.NewsArticle;
 import com.scrapbot.repository.NewsArticleRepository;
 
 @Service
@@ -33,6 +31,11 @@ public class NewsArticleService {
 	public List<NewsArticle> findByNewcompanyLike(String newcompany) {
 		// TODO Auto-generated method stub
 		return newsArticleRepostitory.findByNewcompanyLike(newcompany);
+	}
+
+	public List<NewsArticle> findByNewcompanyContaining(String newcompany) {
+		// TODO Auto-generated method stub
+		return newsArticleRepostitory.findByNewcompanyContaining(newcompany);
 	}
   
 }
