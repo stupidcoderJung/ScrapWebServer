@@ -42,6 +42,9 @@ public class NewsArticleController {
 
 	
 	@GetMapping("/articles/getById/{id}")
+    @ApiOperation(httpMethod = "GET"
+				,value = "articles 단일기사 id로 조회" 
+				,notes="articles 하나의 기사 조회하는 api")
 	public Map<String, Object> findById(@PathVariable("id") int id) {
 		Map<String, Object> response = new HashMap<>();
 
@@ -58,6 +61,9 @@ public class NewsArticleController {
 	}
 	
 	@GetMapping("/articles/getByName/{newcompany}")
+    @ApiOperation(httpMethod = "GET"
+				,value = "articles 신문사별 리스트 조회" 
+				,notes="articles 신문사별 리스트 조회 api")
 	public List<NewsArticle> findOne(@PathVariable("newcompany") String newcompany){
 		
 		//return newsArticleService.findByNewcompanyLike(newcompany);

@@ -3,32 +3,23 @@ package com.scrapbot.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.scrapbot.entity.User;
-import com.scrapbot.repository.UserRepository;
 
-@Service
-public class UserService {
+public interface UserService {
 
-	private final UserRepository userRepository;
+	/** * 사용자 목록 조회 * @return */
+	public List<User> selectUserList();
 
-	@Autowired
-	public UserService(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
-  
-	@Transactional(readOnly = true)
-	public Optional<User> findById(int id) {
-		return userRepository.findById(id);
-	}
-  
-  
-	public List<User> findAll(){  
-		return userRepository.findAll();
-	}
+	/** * 사용자 조회 * @param uid * @return */
+	public Optional<User> selectUser(Long id);
 
-  
+	/** * 사용자 등록 * @param user */
+	public void insertUser(User user);
+
+	/** * 사용자 정보 수정 * @param user */
+	public void updateUser(User user);
+
+	/** * 사용자 삭제 * @param uid */
+	public void deleteUser(Long id);
+
 }
