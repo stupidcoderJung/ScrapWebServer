@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.scrapbot.entity.NewsArticle;
 import com.scrapbot.service.NewsArticleService;
+import com.scrapbot.service.UserService;
+import com.scrapbot.service.impl.NewsArticleServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,25 +32,19 @@ public class NewsArticleController {
     @GetMapping("/articles")
     @ApiOperation(httpMethod = "GET"
     			,value = "articles 리스트전체 조회" 
-    			,notes="articles 리스트 반환하는 API, Ajax 통신 확인용.")
+    			,notes="articles 리스트 반환하는 API")
     public List<NewsArticle> getArticle() {
-    	return newsArticleService.findAll();
+    	return newsArticleService.selectNewsArticleList();
     }
-//    public ResponseEntity<ApiResponseMessage> getArticle() {
-//    	
-//    	ApiResponseMessage message = new ApiResponseMessage("Success", "Hello, World", "", ""); 
-//    	return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.OK);
-//    }
-
 	
 	@GetMapping("/articles/getById/{id}")
     @ApiOperation(httpMethod = "GET"
 				,value = "articles 단일기사 id로 조회" 
 				,notes="articles 하나의 기사 조회하는 api")
-	public Map<String, Object> findById(@PathVariable("id") int id) {
+	public Map<String, Object> findById(@PathVariable("id") Long id) {
 		Map<String, Object> response = new HashMap<>();
 
-		Optional<NewsArticle> oUser = newsArticleService.findById(id);
+		Optional<NewsArticle> oUser = newsArticleService.selectNewsArticle(id);
 		if(oUser.isPresent()) {
 			response.put("result", "SUCCESS");
 			response.put("user", oUser.get());
@@ -65,10 +61,7 @@ public class NewsArticleController {
 				,value = "articles 신문사별 리스트 조회" 
 				,notes="articles 신문사별 리스트 조회 api")
 	public List<NewsArticle> findOne(@PathVariable("newcompany") String newcompany){
-		
-		//return newsArticleService.findByNewcompanyLike(newcompany);
-		
-		// string like 는 containing 을 이용하는것이 잘 되는듯. 개인적인 우도 생
+		// string like 는 containing 을 이용하는것이 잘 되는듯. 개인적인 우도 생각
 		return newsArticleService.findByNewcompanyContaining(newcompany);
 	}
 }

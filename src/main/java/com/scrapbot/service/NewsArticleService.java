@@ -2,40 +2,26 @@ package com.scrapbot.service;
 
 import java.util.List;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 import com.scrapbot.entity.NewsArticle;
-import com.scrapbot.repository.NewsArticleRepository;
 
-@Service
-public class NewsArticleService {
+public interface NewsArticleService {
 
-	private final NewsArticleRepository newsArticleRepostitory;
+	/** * 기사 목록 조회 * @return */
+	public List<NewsArticle> selectNewsArticleList();
 
-	@Autowired
-	public NewsArticleService(NewsArticleRepository newsArticleRepostitory) {
-		this.newsArticleRepostitory = newsArticleRepostitory;
-	}
-  
-	@Transactional(readOnly = true)
-	public Optional<NewsArticle> findById(int id) {
-		return newsArticleRepostitory.findById(id);
-	}
-  
-  
-	public List<NewsArticle> findAll(){  
-		return newsArticleRepostitory.findAll();
-	}
+	/** * 기사 조회 * @param id * @return */
+	public Optional<NewsArticle> selectNewsArticle(Long id);
 
-	public List<NewsArticle> findByNewcompanyLike(String newcompany) {
-		// TODO Auto-generated method stub
-		return newsArticleRepostitory.findByNewcompanyLike(newcompany);
-	}
+	/** * 기사 등록 * @param user */
+	public void insertArticle(NewsArticle newsArticle);
 
-	public List<NewsArticle> findByNewcompanyContaining(String newcompany) {
-		// TODO Auto-generated method stub
-		return newsArticleRepostitory.findByNewcompanyContaining(newcompany);
-	}
-  
+	/** * 기사 정보 수정 * @param user */
+	public void updateArticle(NewsArticle newsArticle);
+
+	/** * 기사 삭제 * @param id */
+	public void deleteArticle(Long id);
+	
+	/** * 신문사 별로 목록 조회 * @param newcompany */
+	public List<NewsArticle> findByNewcompanyContaining(String newcompany);
 }

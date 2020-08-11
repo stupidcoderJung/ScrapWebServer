@@ -16,7 +16,7 @@ import lombok.Setter;
 public class NewsArticle {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 	
 	@Column(name ="newcompany")
 	private String newcompany;
