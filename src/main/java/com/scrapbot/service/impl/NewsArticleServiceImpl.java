@@ -1,5 +1,6 @@
 package com.scrapbot.service.impl;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ public class NewsArticleServiceImpl implements NewsArticleService{
 	@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<NewsArticle> selectNewsArticleList() {
 		// TODO Auto-generated method stub
+		
 		return ImmutableList.copyOf(newsArticleRepostitory.findAll());
 	}
 
@@ -61,6 +63,13 @@ public class NewsArticleServiceImpl implements NewsArticleService{
 	public List<NewsArticle> findByNewcompanyContaining(String newcompany) {
 		// TODO Auto-generated method stub
 		return ImmutableList.copyOf(newsArticleRepostitory.findByNewcompanyContaining(newcompany));
+	}
+
+	@Override
+	@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<NewsArticle> findByRegdateContaining(String date) {
+		// TODO Auto-generated method stub
+		return ImmutableList.copyOf(newsArticleRepostitory.findByRegdateContaining(date));
 	}
 
 	

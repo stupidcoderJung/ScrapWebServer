@@ -1,5 +1,6 @@
 package com.scrapbot.service;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,4 +25,9 @@ public interface NewsArticleService {
 	
 	/** * 신문사 별로 목록 조회 * @param newcompany */
 	public List<NewsArticle> findByNewcompanyContaining(String newcompany);
+	
+	/** * 날짜 별로 목록 조회 * @param localDate */
+	public List<NewsArticle> findByRegdateContaining(String date);
+
+
 }

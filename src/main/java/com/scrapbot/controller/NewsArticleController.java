@@ -1,5 +1,6 @@
 package com.scrapbot.controller;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,5 +64,16 @@ public class NewsArticleController {
 	public List<NewsArticle> findOne(@PathVariable("newcompany") String newcompany){
 		// string like 는 containing 을 이용하는것이 잘 되는듯. 개인적인 우도 생각
 		return newsArticleService.findByNewcompanyContaining(newcompany);
+	}
+	
+	@GetMapping("/articles/getByDate/{regdate}")
+    @ApiOperation(httpMethod = "GET"
+				,value = "articles 날짜별 리스트 조회" 
+				,notes="articles 날짜별 리스트 조회 api")
+	public List<NewsArticle> finddateOne(@PathVariable("regdate") String regdate){
+		// string like 는 containing 을 이용하는것이 잘 되는듯. 개인적인 우도 생각
+		NewsArticle article = new NewsArticle();
+
+		return newsArticleService.findByRegdateContaining(regdate);
 	}
 }
