@@ -1,6 +1,5 @@
 package com.scrapbot.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,4 +71,5 @@ public class NewsArticleController {
 		// string like 는 containing 을 이용하는것이 잘 되는듯. 개인적인 우도 생각
 		return newsArticleService.findByRegdateIs(regdate);
 	}
+	
 }

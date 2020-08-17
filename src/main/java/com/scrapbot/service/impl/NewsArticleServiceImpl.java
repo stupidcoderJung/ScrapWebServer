@@ -24,6 +24,7 @@ public class NewsArticleServiceImpl implements NewsArticleService{
 	@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<NewsArticle> selectNewsArticleList() {
 		// TODO Auto-generated method stub
+		
 		return ImmutableList.copyOf(newsArticleRepostitory.findAll());
 	}
 

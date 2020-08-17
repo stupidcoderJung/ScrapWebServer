@@ -1,5 +1,6 @@
 package com.scrapbot.service;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,5 @@ public interface NewsArticleService {
 	
 	/** * 신문사 날짜별 목록 조회 * @param regdate */
 	public List<NewsArticle> findByRegdateIs(String regdate);
-	
 	
 }
