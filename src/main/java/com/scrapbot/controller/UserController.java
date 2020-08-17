@@ -33,6 +33,7 @@ public class UserController {
 	@GetMapping("/user")
 	@ApiOperation(httpMethod = "GET", value = "사용자 목록 조회", notes = "사용자 목록을 조회하는 API")
 	public List<User> getUserList() {
+		
 		return userService.selectUserList();
 	}
 
