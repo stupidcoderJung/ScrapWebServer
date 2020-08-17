@@ -63,6 +63,13 @@ public class NewsArticleServiceImpl implements NewsArticleService{
 		return ImmutableList.copyOf(newsArticleRepostitory.findByNewcompanyContaining(newcompany));
 	}
 
+	@Override
+	@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<NewsArticle> findByRegdateIs(String regdate) {
+		// TODO Auto-generated method stub
+		return ImmutableList.copyOf(newsArticleRepostitory.findByRegdateIs(regdate));
+	}
+
 	
   
 }

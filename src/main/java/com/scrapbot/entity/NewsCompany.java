@@ -1,14 +1,22 @@
 package com.scrapbot.entity;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Getter;
 import lombok.Setter;
+
+
 
 @Getter
 @Setter
@@ -21,13 +29,21 @@ public class NewsCompany {
 
 	@Column
 	private String companyName;
-	
+
+	@Override
+	public String toString() {
+		return "NewsCompany [id=" + id + ", companyName=" + companyName + ", companyIdOnNaver=" + companyIdOnNaver
+				+ "]";
+	}
+
+
 	@Column
 	private String companyIdOnNaver;
 
-	//@ManyToMany(mappedBy = "newsCompanySet")
-	//Set<User> userSet;
 
+	@JsonBackReference
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "newsCompanySet")
+	Set<User> userSet;
 	
-	
+
 }

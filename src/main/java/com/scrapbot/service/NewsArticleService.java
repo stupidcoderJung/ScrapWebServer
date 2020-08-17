@@ -24,4 +24,9 @@ public interface NewsArticleService {
 	
 	/** * 신문사 별로 목록 조회 * @param newcompany */
 	public List<NewsArticle> findByNewcompanyContaining(String newcompany);
+	
+	/** * 신문사 날짜별 목록 조회 * @param regdate */
+	public List<NewsArticle> findByRegdateIs(String regdate);
+	
+	
 }
